@@ -6,29 +6,33 @@ import Testing
 // MARK: - Mock Generator for Testing
 
 /// A deterministic generator that fills buffers with a repeating byte pattern.
-private struct MockGenerator: Random.Generator, Sendable {
+private struct MockGenerator: Sendable {
     var fillByte: UInt8
 
     init(fillByte: UInt8 = 0xAB) {
         self.fillByte = fillByte
     }
+}
 
+extension MockGenerator: Random.Generator {
     mutating func fill(_ buffer: UnsafeMutableRawBufferPointer) throws(Random.Error) {
         guard let baseAddress = buffer.baseAddress else { return }
-        for i in 0..<buffer.count {
+        buffer.indices.forEach { i in
             baseAddress.storeBytes(of: fillByte, toByteOffset: i, as: UInt8.self)
         }
     }
 }
 
 /// A generator that always throws an error.
-private struct FailingGenerator: Random.Generator, Sendable {
+private struct FailingGenerator: Sendable {
     let error: Random.Error
 
     init(error: Random.Error = .entropyNotReady) {
         self.error = error
     }
+}
 
+extension FailingGenerator: Random.Generator {
     mutating func fill(_ buffer: UnsafeMutableRawBufferPointer) throws(Random.Error) {
         throw error
     }
@@ -36,20 +40,16 @@ private struct FailingGenerator: Random.Generator, Sendable {
 
 // MARK: - Test Suite
 
-extension Random {
-    enum GeneratorTests {
-        enum Test {
-            @Suite struct Unit {}
-            @Suite struct EdgeCase {}
-            @Suite struct Integration {}
-            @Suite(.serialized) struct Performance {}
-        }
-    }
+@Suite struct `Generator Tests` {
+    @Suite struct Unit {}
+    @Suite struct `Edge Case` {}
+    @Suite struct Integration {}
+    @Suite(.serialized) struct Performance {}
 }
 
 // MARK: - Unit Tests
 
-extension Random.GeneratorTests.Test.Unit {
+extension `Generator Tests`.Unit {
     @Test
     func `Generator protocol can be implemented`() throws {
         var generator = MockGenerator()
@@ -113,7 +113,7 @@ extension Random.GeneratorTests.Test.Unit {
 
 // MARK: - Edge Cases
 
-extension Random.GeneratorTests.Test.EdgeCase {
+extension `Generator Tests`.`Edge Case` {
     @Test
     func `Generator fills large buffer`() throws {
         var generator = MockGenerator(fillByte: 0x42)
