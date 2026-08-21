@@ -1,11 +1,6 @@
-// Random.Generator Tests.swift
-
 import Random_Primitives
 import Testing
 
-// MARK: - Mock Generator for Testing
-
-/// A deterministic generator that fills buffers with a repeating byte pattern.
 private struct MockGenerator: Sendable {
     var fillByte: UInt8
 
@@ -23,7 +18,6 @@ extension MockGenerator: Random.Generator {
     }
 }
 
-/// A generator that always throws an error.
 private struct FailingGenerator: Sendable {
     let error: Random.Error
 
@@ -38,16 +32,12 @@ extension FailingGenerator: Random.Generator {
     }
 }
 
-// MARK: - Test Suite
-
 @Suite struct `Generator Tests` {
     @Suite struct Unit {}
     @Suite struct `Edge Case` {}
     @Suite struct Integration {}
     @Suite(.serialized) struct Performance {}
 }
-
-// MARK: - Unit Tests
 
 extension `Generator Tests`.Unit {
     @Test
@@ -110,8 +100,6 @@ extension `Generator Tests`.Unit {
         #expect(buffer.allSatisfy { $0 == 0xFF })
     }
 }
-
-// MARK: - Edge Cases
 
 extension `Generator Tests`.`Edge Case` {
     @Test

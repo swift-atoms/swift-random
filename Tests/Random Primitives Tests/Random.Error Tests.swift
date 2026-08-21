@@ -1,5 +1,3 @@
-// Random.Error Tests.swift
-
 import Random_Primitives
 import Testing
 
@@ -12,13 +10,11 @@ extension Random.Error {
     }
 }
 
-// MARK: - Unit Tests
-
 extension Random.Error.Test.Unit {
     @Test
     func `entropyNotReady case exists`() {
         let error = Random.Error.entropyNotReady
-        _ = error  // Verify it compiles
+        _ = error
     }
 
     @Test
