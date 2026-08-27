@@ -13,7 +13,7 @@ extension MockGenerator: Random.Generator {
     mutating func fill(_ buffer: UnsafeMutableRawBufferPointer) throws(Random.Error) {
         guard let baseAddress = buffer.baseAddress else { return }
         buffer.indices.forEach { i in
-            baseAddress.storeBytes(of: fillByte, toByteOffset: i, as: UInt8.self)
+            unsafe baseAddress.storeBytes(of: fillByte, toByteOffset: i, as: UInt8.self)
         }
     }
 }
@@ -45,7 +45,7 @@ extension `Generator Tests`.Unit {
         var generator = MockGenerator()
         var buffer = [UInt8](repeating: 0, count: 16)
         try buffer.withUnsafeMutableBytes { ptr in
-            try generator.fill(ptr)
+            try unsafe generator.fill(ptr)
         }
         #expect(buffer.allSatisfy { $0 == 0xAB })
     }
@@ -55,7 +55,7 @@ extension `Generator Tests`.Unit {
         var generator = MockGenerator()
         var buffer: [UInt8] = []
         try buffer.withUnsafeMutableBytes { ptr in
-            try generator.fill(ptr)
+            try unsafe generator.fill(ptr)
         }
         #expect(buffer.isEmpty)
     }
@@ -67,7 +67,7 @@ extension `Generator Tests`.Unit {
 
         #expect(throws: Random.Error.entropyNotReady) {
             try buffer.withUnsafeMutableBytes { ptr in
-                try generator.fill(ptr)
+                try unsafe generator.fill(ptr)
             }
         }
     }
@@ -79,7 +79,7 @@ extension `Generator Tests`.Unit {
 
         #expect(throws: Random.Error.systemError(123)) {
             try buffer.withUnsafeMutableBytes { ptr in
-                try generator.fill(ptr)
+                try unsafe generator.fill(ptr)
             }
         }
     }
@@ -95,7 +95,7 @@ extension `Generator Tests`.Unit {
         var generator: any Random.Generator = MockGenerator(fillByte: 0xFF)
         var buffer = [UInt8](repeating: 0, count: 8)
         try buffer.withUnsafeMutableBytes { ptr in
-            try generator.fill(ptr)
+            try unsafe generator.fill(ptr)
         }
         #expect(buffer.allSatisfy { $0 == 0xFF })
     }
@@ -107,7 +107,7 @@ extension `Generator Tests`.`Edge Case` {
         var generator = MockGenerator(fillByte: 0x42)
         var buffer = [UInt8](repeating: 0, count: 1024 * 1024)
         try buffer.withUnsafeMutableBytes { ptr in
-            try generator.fill(ptr)
+            try unsafe generator.fill(ptr)
         }
         #expect(buffer.allSatisfy { $0 == 0x42 })
     }
@@ -118,14 +118,14 @@ extension `Generator Tests`.`Edge Case` {
 
         var buffer1 = [UInt8](repeating: 0, count: 4)
         try buffer1.withUnsafeMutableBytes { ptr in
-            try generator.fill(ptr)
+            try unsafe generator.fill(ptr)
         }
         #expect(buffer1.allSatisfy { $0 == 0x01 })
 
         generator.fillByte = 0x02
         var buffer2 = [UInt8](repeating: 0, count: 4)
         try buffer2.withUnsafeMutableBytes { ptr in
-            try generator.fill(ptr)
+            try unsafe generator.fill(ptr)
         }
         #expect(buffer2.allSatisfy { $0 == 0x02 })
     }
