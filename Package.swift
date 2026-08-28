@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-random-primitives",
+    name: "swift-random",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -13,31 +13,19 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Random Primitives",
-            targets: ["Random Primitives"]
-        ),
-        .library(
-            name: "Random Primitives Test Support",
-            targets: ["Random Primitives Test Support"]
+            name: "Random",
+            targets: ["Random"]
         ),
     ],
     dependencies: [],
     targets: [
         .target(
-            name: "Random Primitives"
-        ),
-        .target(
-            name: "Random Primitives Test Support",
-            dependencies: [
-                "Random Primitives"
-            ],
-            path: "Tests/Support"
+            name: "Random"
         ),
         .testTarget(
-            name: "Random Primitives Tests",
+            name: "Random Tests",
             dependencies: [
-                "Random Primitives",
-                "Random Primitives Test Support",
+                .target(name: "Random"),
             ]
         ),
     ],

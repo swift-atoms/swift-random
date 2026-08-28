@@ -1,4 +1,4 @@
-# Random Primitives
+# Random
 
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
@@ -11,7 +11,7 @@ The shared abstraction for cryptographically-secure random byte generation in Sw
 `Random` is the ecosystem's vocabulary for cryptographically-secure randomness. It defines the `Random.Generator` protocol — the contract every CSPRNG implements — and `Random.Error`, the typed failure that random generation can surface. The package imports nothing: platform packages (swift-darwin, swift-linux, swift-windows) supply the concrete generators that fill buffers from the operating system's CSPRNG.
 
 ```swift
-import Random_Primitives
+import Random
 
 // Conform a type to the generator contract.
 struct CountingGenerator: Random.Generator {
@@ -41,7 +41,7 @@ try bytes.withUnsafeMutableBytes { buffer in
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-primitives/swift-random-primitives.git", branch: "main")
+    .package(url: "https://github.com/swift-atoms/swift-random.git", branch: "main")
 ]
 ```
 
@@ -49,7 +49,7 @@ dependencies: [
 .target(
     name: "App",
     dependencies: [
-        .product(name: "Random Primitives", package: "swift-random-primitives"),
+        .product(name: "Random", package: "swift-random"),
     ]
 )
 ```
@@ -60,12 +60,11 @@ Requires Swift 6.3.1 and macOS 26 / iOS 26 / tvOS 26 / watchOS 26 / visionOS 26 
 
 ## Architecture
 
-Two library products, zero external dependencies.
+One library product, zero external dependencies.
 
 | Product | Target | Purpose |
 |---------|--------|---------|
-| `Random Primitives` | `Sources/Random Primitives/` | The `Random` namespace + the `Random.Generator` protocol (CSPRNG contract) and `Random.Error` (`.entropyNotReady` / `.systemError`). |
-| `Random Primitives Test Support` | `Tests/Support/` | Re-exports the main target for test consumers. |
+| `Random` | `Sources/Random/` | The `Random` namespace + the `Random.Generator` protocol (CSPRNG contract) and `Random.Error` (`.entropyNotReady` / `.systemError`). |
 
 Foundation-free.
 

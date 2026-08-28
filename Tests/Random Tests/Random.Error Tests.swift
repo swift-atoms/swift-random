@@ -1,4 +1,4 @@
-import Random_Primitives
+import Random
 import Testing
 
 extension Random.Error {
