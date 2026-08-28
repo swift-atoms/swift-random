@@ -17,35 +17,28 @@ let package = Package(
             targets: ["Random"]
         ),
         .library(
-            name: "Random Standard Library Integration",
-            targets: ["Random Standard Library Integration"]
-        ),
-        .library(
-            name: "Random Apple Foundation Integration",
-            targets: ["Random Apple Foundation Integration"]
+            name: "Random Test Support",
+            targets: ["Random Test Support"]
         ),
     ],
     dependencies: [],
     targets: [
         .target(
-            name: "Random",
-            dependencies: []
+            name: "Random"
         ),
         .target(
-            name: "Random Standard Library Integration",
-            dependencies: ["Random"]
-        ),
-        .target(
-            name: "Random Apple Foundation Integration",
+            name: "Random Test Support",
             dependencies: [
-                "Random",
-                "Random Standard Library Integration",
-            ]
+                "Random"
+            ],
+            path: "Tests/Support"
         ),
         .testTarget(
             name: "Random Tests",
-            dependencies: ["Random"],
-            path: "Tests/Random Tests"
+            dependencies: [
+                "Random",
+                "Random Test Support",
+            ]
         ),
     ],
     swiftLanguageModes: [.v6]
