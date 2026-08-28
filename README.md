@@ -41,7 +41,7 @@ try bytes.withUnsafeMutableBytes { buffer in
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-molecules/swift-random.git", branch: "main")
+    .package(url: "https://github.com/swift-atoms/swift-random.git", branch: "main")
 ]
 ```
 
@@ -60,12 +60,11 @@ Requires Swift 6.3.1 and macOS 26 / iOS 26 / tvOS 26 / watchOS 26 / visionOS 26 
 
 ## Architecture
 
-Two library products, zero external dependencies.
+One library product, zero external dependencies.
 
 | Product | Target | Purpose |
 |---------|--------|---------|
 | `Random` | `Sources/Random/` | The `Random` namespace + the `Random.Generator` protocol (CSPRNG contract) and `Random.Error` (`.entropyNotReady` / `.systemError`). |
-| `Random Test Support` | `Tests/Support/` | Re-exports the main target for test consumers. |
 
 Foundation-free.
 

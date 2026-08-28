@@ -16,28 +16,16 @@ let package = Package(
             name: "Random",
             targets: ["Random"]
         ),
-        .library(
-            name: "Random Test Support",
-            targets: ["Random Test Support"]
-        ),
     ],
     dependencies: [],
     targets: [
         .target(
             name: "Random"
         ),
-        .target(
-            name: "Random Test Support",
-            dependencies: [
-                "Random"
-            ],
-            path: "Tests/Support"
-        ),
         .testTarget(
             name: "Random Tests",
             dependencies: [
-                "Random",
-                "Random Test Support",
+                .target(name: "Random"),
             ]
         ),
     ],
