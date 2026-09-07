@@ -13,8 +13,8 @@ let package = Package(
     ],
     products: [
         .library(name: "Random", targets: ["Random"]),
-        .library(name: "Random Standard Library Integration", targets: ["Random Standard Library Integration"]),
-        .library(name: "Random Foundation Library Integration", targets: ["Random Foundation Library Integration"]),
+
+        .library(name: "Random Foundation Integration", targets: ["Random Foundation Integration"]),
         .library(name: "Random Test Support", targets: ["Random Test Support"]),
     ],
     dependencies: [],
@@ -25,20 +25,13 @@ let package = Package(
             ],
             path: "Sources/Random"
         ),
+        
         .target(
-            name: "Random Standard Library Integration",
+            name: "Random Foundation Integration",
             dependencies: [
                 .target(name: "Random"),
             ],
-            path: "Sources/Random Standard Library Integration"
-        ),
-        .target(
-            name: "Random Foundation Library Integration",
-            dependencies: [
-                .target(name: "Random"),
-                .target(name: "Random Standard Library Integration"),
-            ],
-            path: "Sources/Random Foundation Library Integration"
+            path: "Sources/Random Foundation Integration"
         ),
         .target(
             name: "Random Test Support",
@@ -52,8 +45,7 @@ let package = Package(
             dependencies: [
                 .target(name: "Random"),
                 .target(name: "Random Test Support"),
-                .target(name: "Random Standard Library Integration"),
-                .target(name: "Random Foundation Library Integration"),
+                .target(name: "Random Foundation Integration"),
             ],
             path: "Tests/Random Tests"
         ),
