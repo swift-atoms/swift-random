@@ -32,14 +32,14 @@ extension FailingGenerator: Random.Generator {
     }
 }
 
-@Suite struct `Generator Tests` {
-    @Suite struct Unit {}
-    @Suite struct `Edge Case` {}
-    @Suite struct Integration {}
-    @Suite(.serialized) struct Performance {}
+@Suite struct `Random generators fill buffers and propagate typed errors` {
+    @Suite struct `Random generators preserve filling errors and checked conformances` {}
+    @Suite struct `Random generators fill large buffers and permit state mutation` {}
+    @Suite struct `No additional random generator integration cases are defined` {}
+    @Suite(.serialized) struct `No random generator performance cases are defined` {}
 }
 
-extension `Generator Tests`.Unit {
+extension `Random generators fill buffers and propagate typed errors`.`Random generators preserve filling errors and checked conformances` {
     @Test
     func `Generator protocol can be implemented`() throws {
         var generator = MockGenerator()
@@ -101,7 +101,7 @@ extension `Generator Tests`.Unit {
     }
 }
 
-extension `Generator Tests`.`Edge Case` {
+extension `Random generators fill buffers and propagate typed errors`.`Random generators fill large buffers and permit state mutation` {
     @Test
     func `Generator fills large buffer`() throws {
         var generator = MockGenerator(fillByte: 0x42)
