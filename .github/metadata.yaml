@@ -1,5 +1,3 @@
-# .github/metadata.yaml
-# Triaged 2026-04-29 — anomaly-fix pass after wave-4 PR-branch triage didn't apply.
 description: "A platform-independent CSPRNG generator contract with typed errno/NTSTATUS-preserving errors for Swift."
 topics:
   - primitives
