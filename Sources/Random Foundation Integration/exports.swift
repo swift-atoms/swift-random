@@ -1,2 +1,2 @@
-@_exported public import Random
 import Foundation
+@_exported public import Random

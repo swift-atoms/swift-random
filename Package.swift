@@ -21,22 +21,21 @@ let package = Package(
     targets: [
         .target(
             name: "Random",
-            dependencies: [
-            ],
+            dependencies: [],
             path: "Sources/Random"
         ),
-        
+
         .target(
             name: "Random Foundation Integration",
             dependencies: [
-                .target(name: "Random"),
+                .target(name: "Random")
             ],
             path: "Sources/Random Foundation Integration"
         ),
         .target(
             name: "Random Test Support",
             dependencies: [
-                .target(name: "Random"),
+                .target(name: "Random")
             ],
             path: "Tests/Support"
         ),
@@ -54,14 +53,15 @@ let package = Package(
 )
 
 for target in package.targets where ![.system, .binary, .plugin].contains(target.type) {
-    target.swiftSettings = (target.swiftSettings ?? []) + [
-        .strictMemorySafety(),
-        .enableUpcomingFeature("ExistentialAny"),
-        .enableUpcomingFeature("InternalImportsByDefault"),
-        .enableUpcomingFeature("MemberImportVisibility"),
-        .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
-        .enableUpcomingFeature("InferIsolatedConformances"),
-        .enableExperimentalFeature("Lifetimes"),
-        .treatAllWarnings(as: .error),
-    ]
+    target.swiftSettings =
+        (target.swiftSettings ?? []) + [
+            .strictMemorySafety(),
+            .enableUpcomingFeature("ExistentialAny"),
+            .enableUpcomingFeature("InternalImportsByDefault"),
+            .enableUpcomingFeature("MemberImportVisibility"),
+            .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+            .enableUpcomingFeature("InferIsolatedConformances"),
+            .enableExperimentalFeature("Lifetimes"),
+            .treatAllWarnings(as: .error),
+        ]
 }
